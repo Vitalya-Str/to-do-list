@@ -1,0 +1,12 @@
+.toDo_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toDo_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
