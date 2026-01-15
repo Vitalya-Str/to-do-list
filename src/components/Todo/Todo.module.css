@@ -2,6 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.toDo_item {
+    width: 400px;
+    max-width: 100%;
 }
 
 .toDo_title {
@@ -10,3 +16,13 @@
     justify-content: center;
 }
 
+.toDo_element {
+    
+    width: 400px;
+    max-width: 100%;
+}
+.toDo_element_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
