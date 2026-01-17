@@ -1,27 +1,26 @@
-.toDo_container {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
-.toDo_item {
-    width: 400px;
-    max-width: 100%;
-}
-
-.toDo_title {
+.element_container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.toDo_element {
-    
+.element {
     width: 400px;
     max-width: 100%;
 }
-.toDo_element_container{
+
+.elemt_item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
     display: flex;
     align-items: center;
     justify-content: center;
