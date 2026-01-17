@@ -1,27 +1,20 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.element_container {
-    display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.element {
-    width: 400px;
-    max-width: 100%;
-}
-
-.elemt_item {
-    display: flex;
-    justify-content: space-between;
 }
 
 .title {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.element {
+    width: 400px;
 }

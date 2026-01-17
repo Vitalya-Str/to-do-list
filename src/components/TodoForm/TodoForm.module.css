@@ -1,0 +1,4 @@
+.todoForm_element_item {
+    display: flex;
+    justify-content: space-between;
+}
