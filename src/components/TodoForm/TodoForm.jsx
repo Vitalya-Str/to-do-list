@@ -1,10 +1,9 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { ButtonComponent } from "../shared/Button/ButtonComponent"
 import { Field } from "../shared/Field/Field"
-import s from './TodoForm.module.css'
 import { useDispatch } from "react-redux"
 import { todosDeleteAll } from "../features/todos/todosSlice"
-import { useReducer } from "react"
+import s from './TodoForm.module.css'
 
 const TodoForm = ({ addTodo }) => {
 
@@ -12,36 +11,33 @@ const TodoForm = ({ addTodo }) => {
 
     const dispatch = useDispatch()
 
-    const inputRef = useReducer(null)
+    const inputRef = useRef(null)
 
     const onChangeInputTodo = (e) => {
         setInputTodo(e.target.value)
     }
 
     const addInputTodo = () => {
-        if (inputTodo.length > 0) {
-            addTodo({ id: Math.random(), text: inputTodo })
-        }
+        if (!inputTodo.trim()) return
+
+        addTodo({ id: Math.random(), text: inputTodo.trim() })
+
         setInputTodo('')
     }
 
     const onPressEnter = (e) => {
         e.preventDefault()
-        if (inputTodo.length > 0) {
-            addTodo({ id: Math.random(), text: inputTodo })
-        }
-        setInputTodo('')
         inputRef.current.blur()
+        if (!inputTodo.trim()) return
+        addTodo({ id: Math.random(), text: inputTodo.trim() })
+        setInputTodo('')
     }
 
     return (
         <div>
-
-            <form className={s.todoForm_element_item}
-                onSubmit={onPressEnter}
-                onChange={(e) => onChangeInputTodo(e)}
-            >
+            <form className={s.todoForm_element_item} onSubmit={onPressEnter}  >
                 <Field
+                    onChange={(e) => onChangeInputTodo(e)}
                     inputRef={inputRef}
                     label='input todo'
                     size='small'

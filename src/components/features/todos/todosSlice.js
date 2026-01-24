@@ -32,11 +32,15 @@ const todosSlice = createSlice({
         todoToggle(state, action) {
             const toggle = state.find(todo => todo.id === action.payload)
             toggle.checked = !toggle.checked
+        },
+
+        todoDelete(state, action) {
+           return state.filter(f => f.id !== action.payload)
         }
     }
 })
 
-export const { todoAdded, todoToggle, todosDeleteAll } = todosSlice.actions
+export const { todoAdded, todoToggle, todosDeleteAll, todoDelete } = todosSlice.actions
 
 export const selectTodos = state => state.todos
 

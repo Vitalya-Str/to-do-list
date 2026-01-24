@@ -12,7 +12,6 @@ const Todo = () => {
     const todos = useSelector(selectTodos)
     const dispatch = useDispatch()
 
-
     return (
         <Box className={s.wrapper} >
             <Paper

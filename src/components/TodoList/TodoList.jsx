@@ -1,11 +1,26 @@
-import { Checkbox, FormControlLabel, } from '@mui/material'
+import { Box, Button, Checkbox, FormControlLabel, Modal, Typography, } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import s from './TodoList.module.css'
 import { useDispatch } from 'react-redux';
-import { todoToggle } from '../features/todos/todosSlice';
+import { todoDelete, todoToggle } from '../features/todos/todosSlice';
+import { useState } from 'react';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const TodoList = ({ todos }) => {
+
+    const [todo, setTodo] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -13,31 +28,57 @@ const TodoList = ({ todos }) => {
         dispatch(todoToggle(id))
     }
 
+    const deleteOne = (id) => {
+        dispatch(todoDelete(id))
+        setTodo(null)
+    }
+
     return (
-        <div className={s.todo_list}>
-            {todos.map((t, i) => {
+        <>
 
-                const isActiveChecked = t.checked ? s.todo_card_active : ''
+            <div className={s.todo_list}>
+                {todos.map((t, i) => {
 
-                return <div key={i} className={`${s.todo_card} ${isActiveChecked}`}>
+                    const isActiveChecked = t.checked ? s.todo_card_active : ''
 
-                    <FormControlLabel
-                        control={<Checkbox
-                            checked={t.checked}
-                            onChange={() => handleChange(t.id)}
-                        />}
-                        label={t.text} />
+                    return <div key={i} className={`${s.todo_card} ${isActiveChecked}`}>
 
-                    <div className={s.todo_card_item}>
+                        <FormControlLabel
+                            control={<Checkbox
+                                checked={t.checked}
+                                onChange={() => handleChange(t.id)}
+                            />}
+                            label={t.text} />
 
-                        <ModeEditIcon />
-
-                        <DeleteForeverIcon sx={{ marginLeft: 2 }} />
-
+                        <div className={s.todo_card_item}>
+                            <Button>
+                                <ModeEditIcon />
+                            </Button>
+                            <Button onClick={() => setTodo(t)}>
+                                <DeleteForeverIcon />
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            })}
-        </div>
+                })}
+            </div>
+
+            <Modal
+                open={todo}
+                onClose={() => setTodo(null)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {todo ? `Хотите удалить заметку ${todo.text}?` : ''}
+                    </Typography>
+                    <Button onClick={() => deleteOne(todo.id)}>Yes</Button>
+                    <Button onClick={() => setTodo(null)}>No</Button>
+                </Box>
+
+            </Modal>
+        </>
+
     )
 }
 
