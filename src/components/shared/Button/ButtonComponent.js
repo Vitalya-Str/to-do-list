@@ -1,12 +1,9 @@
 import { Button } from '@mui/material';
 
-export const ButtonComponent = ({ variant, size, children, ...props }) => {
+export const ButtonComponent = ({ children, ...props }) => {
+
 
     return (
-        <Button
-            variant={variant}
-            size={size}
-            {...props}
-        > {children} </Button>
+        <Button {...props}> {children} </Button>
     )
 } 

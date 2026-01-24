@@ -1,22 +1,59 @@
+import { useState } from "react"
 import { ButtonComponent } from "../shared/Button/ButtonComponent"
 import { Field } from "../shared/Field/Field"
 import s from './TodoForm.module.css'
+import { useDispatch } from "react-redux"
+import { todosDeleteAll } from "../features/todos/todosSlice"
+import { useReducer } from "react"
 
-const TodoForm = () => {
+const TodoForm = ({ addTodo }) => {
+
+    const [inputTodo, setInputTodo] = useState('')
+
+    const dispatch = useDispatch()
+
+    const inputRef = useReducer(null)
+
+    const onChangeInputTodo = (e) => {
+        setInputTodo(e.target.value)
+    }
+
+    const addInputTodo = () => {
+        if (inputTodo.length > 0) {
+            addTodo({ id: Math.random(), text: inputTodo })
+        }
+        setInputTodo('')
+    }
+
+    const onPressEnter = (e) => {
+        e.preventDefault()
+        if (inputTodo.length > 0) {
+            addTodo({ id: Math.random(), text: inputTodo })
+        }
+        setInputTodo('')
+        inputRef.current.blur()
+    }
 
     return (
-        <div >
-            <div className={s.todoForm_element_item}>
+        <div>
+
+            <form className={s.todoForm_element_item}
+                onSubmit={onPressEnter}
+                onChange={(e) => onChangeInputTodo(e)}
+            >
                 <Field
-                    label='input to do'
+                    inputRef={inputRef}
+                    label='input todo'
                     size='small'
+                    value={inputTodo}
                     fullWidth
                 />
                 <ButtonComponent
                     variant="contained"
                     size='medium'
+                    onClick={() => addInputTodo()}
                     sx={{ marginLeft: 2 }}> Add </ButtonComponent>
-            </div>
+            </form>
             <Field
                 label='Search Task'
                 size='small'
@@ -26,6 +63,7 @@ const TodoForm = () => {
             <ButtonComponent
                 variant="contained"
                 size='medium'
+                onClick={() => dispatch(todosDeleteAll())}
                 sx={{ marginTop: 2 }}
                 fullWidth > Delete all </ButtonComponent>
         </div>

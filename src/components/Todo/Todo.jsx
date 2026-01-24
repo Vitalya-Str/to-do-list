@@ -1,11 +1,16 @@
 import { Box, Paper } from '@mui/material';
 import s from './Todo.module.css'
-import TodoForm from '../TodoForm';
 import TodoList from '../TodoList/TodoList';
+import TodoForm from './../TodoForm/TodoForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTodos, todoAdded } from '../features/todos/todosSlice';
 
 
 
 const Todo = () => {
+
+    const todos = useSelector(selectTodos)
+    const dispatch = useDispatch()
 
 
     return (
@@ -19,13 +24,21 @@ const Todo = () => {
                     paddingBottom: 5
                 }}
                 elevation={12}>
+
                 <div className={s.title}>
                     <h1> Notebook </h1>
                 </div>
+
                 <div className={s.container}>
                     <div className={s.element}>
-                        <TodoForm />
-                        <TodoList />
+
+                        <TodoForm
+                            todos={todos}
+                            addTodo={(newText) => dispatch(todoAdded(newText))} />
+
+                        <TodoList
+                            todos={todos}
+                        />
                     </div>
 
                 </div>

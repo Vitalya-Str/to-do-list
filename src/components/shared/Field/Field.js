@@ -1,13 +1,9 @@
 import { TextField } from '@mui/material';
 
-export const Field = ({ label, size, ...props }) => {
+export const Field = (props) => {
 
     return (
-        <TextField label={label}
-         size={size} 
-         {...props}
-         />
-
+        <TextField {...props} />
     )
 
 }

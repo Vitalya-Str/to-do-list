@@ -1,48 +1,33 @@
-/* .container {
+.todo_list {
+
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-}
-.element {
-    display: flex;
-    align-items: center;
-
-} */
-
-.todo_list {
-  /* Контейнер для всех карточек */
-  display: flex; /* Или grid */
-  flex-direction: column;
-  gap: 5px; /* Отступ между карточками */
+    gap: 5px;
 }
 
 .todo_card {
-  background-color: #f9f9f9; /* Светлый фон */
-  border: 1px solid #ddd; /* Серая рамка */
-  border-radius: 8px; /* Скругленные углы */
-  padding: 15px 20px; /* Внутренние отступы */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
-  transition: all 0.3s ease; /* Плавные переходы */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
 }
 
-/* Стиль для выполненных задач */
-.todo_card.completed {
-  background-color: #e0ffe0; /* Зеленоватый фон */
-  border-color: #a3d9a3;
-  text-decoration: line-through; /* Зачеркнутый текст */
-  color: #888;
+.todo_card_active {
+    text-decoration: line-through;
 }
 
-/* Эффект при наведении */
 .todo_card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-.todo_card label {
-  cursor: pointer;
+.todo_card_item {
+    cursor: pointer;
 }
