@@ -36,11 +36,12 @@ const todosSlice = createSlice({
 
         todoDelete(state, action) {
            return state.filter(f => f.id !== action.payload)
-        }
+        },
+      
     }
 })
 
-export const { todoAdded, todoToggle, todosDeleteAll, todoDelete } = todosSlice.actions
+export const { todoAdded, todoToggle, todosDeleteAll, todoDelete, todoSearch } = todosSlice.actions
 
 export const selectTodos = state => state.todos
 

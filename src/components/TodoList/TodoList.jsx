@@ -2,8 +2,8 @@ import { Box, Button, Checkbox, FormControlLabel, Modal, Typography, } from '@mu
 import DeleteForeverIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import s from './TodoList.module.css'
-import { useDispatch } from 'react-redux';
-import { todoDelete, todoToggle } from '../features/todos/todosSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTodos, todoDelete, todoToggle } from '../features/todos/todosSlice';
 import { useState } from 'react';
 
 const style = {
@@ -18,10 +18,11 @@ const style = {
     p: 4,
 };
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ searchTodo }) => {
 
     const [todo, setTodo] = useState(null)
 
+    const todos = useSelector(selectTodos)
     const dispatch = useDispatch()
 
     const handleChange = (id) => {
@@ -33,11 +34,12 @@ const TodoList = ({ todos }) => {
         setTodo(null)
     }
 
+    const filterTodo = todos.filter(todo => todo.text.toLowerCase().includes(searchTodo.toLowerCase()))
+    
     return (
         <>
-
             <div className={s.todo_list}>
-                {todos.map((t, i) => {
+                {filterTodo.map((t, i) => {
 
                     const isActiveChecked = t.checked ? s.todo_card_active : ''
 
