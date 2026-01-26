@@ -4,21 +4,10 @@ import { Field } from "../shared/Field/Field"
 import { useDispatch } from "react-redux"
 import { todoAdded, todosDeleteAll } from "../features/todos/todosSlice"
 import s from './TodoForm.module.css'
-import { Box, Button, Modal, Typography } from "@mui/material"
+import {  Button, Dialog, DialogActions, DialogTitle } from "@mui/material"
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
-const TodoForm = ({setSearchTodo}) => {
+const TodoForm = ({ setSearchTodo }) => {
 
     const [inputTodo, setInputTodo] = useState('')
 
@@ -59,7 +48,7 @@ const TodoForm = ({setSearchTodo}) => {
         <>
             <form className={s.todoForm_element_item} onSubmit={onPressEnter}  >
                 <Field
-                    onChange={(e) => handleChangeInputTodo(e)}
+                    onChange={handleChangeInputTodo}
                     inputRef={inputRef}
                     label='input todo'
                     size='small'
@@ -69,13 +58,13 @@ const TodoForm = ({setSearchTodo}) => {
                 <ButtonComponent
                     variant="contained"
                     size='medium'
-                    onClick={() => addInputTodo()}
+                    onClick={addInputTodo}
                     sx={{ marginLeft: 2 }}> Add </ButtonComponent>
             </form>
             <Field
                 label='Search Task'
                 size='small'
-                onChange={(e) => handleSearchInput(e)}
+                onChange={handleSearchInput}
                 sx={{ marginTop: 2 }}
                 fullWidth
             />
@@ -86,21 +75,19 @@ const TodoForm = ({setSearchTodo}) => {
                 sx={{ marginTop: 2 }}
                 fullWidth > Delete all </ButtonComponent>
 
-            <Modal
+            <Dialog
+                sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+                maxWidth="xs"
                 open={open}
-                onClose={() => setOpen(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Хотите удалить все заметки?
-                    </Typography>
-                    <Button onClick={() => handleDeleteAll()}>Yes</Button>
-                    <Button onClick={() => setOpen(false)}>No</Button>
-                </Box>
-
-            </Modal>
+                <DialogTitle>Хотите удалить все заметки?</DialogTitle>
+                <DialogActions>
+                    <Button autoFocus onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleDeleteAll}>Ok</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

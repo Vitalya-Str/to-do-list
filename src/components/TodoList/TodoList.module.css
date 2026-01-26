@@ -19,6 +19,16 @@
 
 }
 
+.lable_card {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 14px;
+}
+.lable_card_date {
+    font-size: 8px;
+}
+
 .todo_card_active {
     text-decoration: line-through;
 }
@@ -29,5 +39,8 @@
 }
 
 .todo_card_item {
+    display: flex;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
 }
