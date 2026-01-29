@@ -5,13 +5,13 @@ const initialState = [
         id: 1,
         text: 'Variant',
         checked: false,
-        createdAt: new Date().toISOString()
+        date: new Date().toISOString()
     },
     {
         id: 2,
         text: 'Variant22',
         checked: true,
-        createdAt: new Date().toISOString()
+        date: new Date().toISOString()
     }
 ]
 
@@ -24,7 +24,7 @@ const todosSlice = createSlice({
                 id: action.payload.id,
                 text: action.payload.text,
                 checked: false,
-                createdAt: new Date().toISOString()
+                date: new Date().toISOString()
             })
         },
 

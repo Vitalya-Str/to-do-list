@@ -5,16 +5,14 @@ import s from './TodoList.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodos, todoDelete, todoToggle } from '../features/todos/todosSlice';
 import { useState } from 'react';
-import { Padding } from '@mui/icons-material';
 
 
 
-// Сортировка
 
 const TodoList = ({ searchTodo }) => {
 
     const [todo, setTodo] = useState(null)
-    const [state, setState] = useState(false) // sortBy = date || алфавит 
+    const [sortType, setSortType] = useState('date')
 
     const todos = useSelector(selectTodos)
     const dispatch = useDispatch()
@@ -30,13 +28,24 @@ const TodoList = ({ searchTodo }) => {
 
     const filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchTodo.toLowerCase()))
 
-    const sortedTodos = state ? filteredTodos.sort((a, b) => a.text.localeCompare(b.text)) : filteredTodos
+    const sortedTodos = [...filteredTodos].sort((a, b) => {
+
+        if (sortType === 'asc') {
+            return a.text.localeCompare(b.text)
+        } else if (sortType === 'desc') {
+            return b.text.localeCompare(a.text)
+        } else {
+            return new Date(a.date) - new Date(b.date)
+        }
+    })
 
     return (
         <>
-            <button onClick={() => setState((prev) => !prev)} >
-                sort
-            </button>
+            <select className={s.sort} name="sort" id="sort" onClick={(e) => setSortType(e.target.value)}>
+                <option value="date">По дате</option>
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По по убыванию</option>
+            </select>
             <div className={s.todo_list}>
                 {sortedTodos.map((t, i) => {
 
@@ -51,7 +60,7 @@ const TodoList = ({ searchTodo }) => {
                             />}
                             label={<div className={s.lable_card}>
                                 <span>{t.text}</span>
-                                <span className={s.lable_card_date}>{t.createdAt}</span>
+                                <span className={s.lable_card_date}>{t.date}</span>
                             </div>}
 
                         />
