@@ -13,6 +13,7 @@ const TodoList = ({ searchTodo }) => {
 
     const [todo, setTodo] = useState(null)
     const [sortType, setSortType] = useState('date')
+    const [sort, setSort] = useState('asc')
 
     const todos = useSelector(selectTodos)
     const dispatch = useDispatch()
@@ -30,21 +31,29 @@ const TodoList = ({ searchTodo }) => {
 
     const sortedTodos = [...filteredTodos].sort((a, b) => {
 
-        if (sortType === 'asc') {
-            return a.text.localeCompare(b.text)
-        } else if (sortType === 'desc') {
-            return b.text.localeCompare(a.text)
-        } else {
-            return new Date(a.date) - new Date(b.date)
+        let result = 0
+
+        if (sortType === 'alphabet') {
+            result = a.text.localeCompare(b.text)
         }
+        if (sortType === 'date') {
+            result = new Date(a.date) - new Date(b.date)
+        }
+
+        return sort === 'desc' ? -result : result
     })
+
+
 
     return (
         <>
             <select className={s.sort} name="sort" id="sort" onClick={(e) => setSortType(e.target.value)}>
                 <option value="date">По дате</option>
+                <option value="alphabet">По алфавиту</option>
+            </select>
+            <select className={s.sort} name="sort" id="sort" onClick={(e) => setSort(e.target.value)}>
                 <option value="asc">По возрастанию</option>
-                <option value="desc">По по убыванию</option>
+                <option value="desc">По убыванию</option>
             </select>
             <div className={s.todo_list}>
                 {sortedTodos.map((t, i) => {
