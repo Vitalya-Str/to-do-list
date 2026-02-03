@@ -1,11 +1,9 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogTitle, FormControlLabel } from '@mui/material'
-import DeleteForeverIcon from '@mui/icons-material/DeleteOutlined';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import s from './TodoList.module.css'
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodos, todoDelete, todoToggle } from '../features/todos/todosSlice';
+import ListItem from './ListItem/index'
 import { useState } from 'react';
-
+import s from './TodoList.module.css'
 
 
 
@@ -17,6 +15,8 @@ const TodoList = ({ searchTodo }) => {
 
     const todos = useSelector(selectTodos)
     const dispatch = useDispatch()
+
+
 
     const handleChange = (id) => {
         dispatch(todoToggle(id))
@@ -44,7 +44,6 @@ const TodoList = ({ searchTodo }) => {
     })
 
 
-
     return (
         <>
             <select className={s.sort} name="sort" id="sort" onClick={(e) => setSortType(e.target.value)}>
@@ -56,34 +55,17 @@ const TodoList = ({ searchTodo }) => {
                 <option value="desc">По убыванию</option>
             </select>
             <div className={s.todo_list}>
+
                 {sortedTodos.map((t, i) => {
 
-                    const isActiveChecked = t.checked ? s.todo_card_active : ''
-
-                    return <div key={i} className={`${s.todo_card} ${isActiveChecked}`}>
-
-                        <FormControlLabel
-                            control={<Checkbox
-                                checked={t.checked}
-                                onChange={() => handleChange(t.id)}
-                            />}
-                            label={<div className={s.lable_card}>
-                                <span>{t.text}</span>
-                                <span className={s.lable_card_date}>{t.date}</span>
-                            </div>}
-
+                    return <>
+                        <ListItem key={i}
+                            setTodo={setTodo}
+                            item={t}
+                            handleChange={handleChange}
+                            style={s}
                         />
-
-                        <div className={s.todo_card_item}>
-                            <Button >
-                                <ModeEditIcon />
-                            </Button>
-                            <Button onClick={() => setTodo(t)}>
-                                <DeleteForeverIcon />
-                            </Button>
-
-                        </div>
-                    </div>
+                    </>
                 })}
             </div>
 

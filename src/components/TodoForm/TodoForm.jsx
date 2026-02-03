@@ -29,7 +29,7 @@ const TodoForm = ({ setSearchTodo }) => {
 
     const onPressEnter = (e) => {
         e.preventDefault()
-        inputRef.current.blur()
+        // inputRef.current.blur()
         if (!inputTodo.trim()) return
         dispatch(todoAdded({ id: Math.random(), text: inputTodo.trim() }))
         setInputTodo('')

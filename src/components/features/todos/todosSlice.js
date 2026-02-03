@@ -27,6 +27,17 @@ const todosSlice = createSlice({
                 date: new Date().toISOString()
             })
         },
+        updateTodo(state, action) {
+
+            const { id, text } = action.payload
+            console.log(action)
+
+
+            const todo = state.find(todo => todo.id === id)
+            if (todo) {
+                todo.text = text
+            }
+        },
 
         todosDeleteAll(state) {
             state.length = 0
@@ -38,13 +49,13 @@ const todosSlice = createSlice({
         },
 
         todoDelete(state, action) {
-           return state.filter(f => f.id !== action.payload)
+            return state.filter(f => f.id !== action.payload)
         },
-      
+
     }
 })
 
-export const { todoAdded, todoToggle, todosDeleteAll, todoDelete, todoSearch } = todosSlice.actions
+export const { todoAdded, todoToggle, todosDeleteAll, todoDelete, todoSearch, updateTodo } = todosSlice.actions
 
 export const selectTodos = state => state.todos
 
